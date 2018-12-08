@@ -2,12 +2,13 @@ import React, { Component } from "react";
 import { Consumer } from "./../../context";
 import TextInputGroup from "./../layouts/TextInputGroup";
 import uuid from "uuid";
+import axios from "axios";
 
 class AddContact extends Component {
   state = {
     id: "",
-    fname: "",
-    lname: "",
+    name: "",
+    phone: "",
     email: "",
     age: "",
     errors: {}
@@ -15,12 +16,12 @@ class AddContact extends Component {
 
   onChange = e => this.setState({ [e.target.name]: e.target.value });
 
-  onFormSubmit = (dispatch, e) => {
+  onFormSubmit = async (dispatch, e) => {
     e.preventDefault();
-    const { fname, lname, email, age } = this.state;
+    const { name, phone, email, age } = this.state;
 
     // Form validation check
-    if (fname === "") {
+    if (name === "") {
       this.setState({
         errors: {
           fname: "First name is required"
@@ -30,7 +31,7 @@ class AddContact extends Component {
     }
 
     //Last name check
-    if (lname === "") {
+    if (phone === "") {
       this.setState({
         errors: {
           lname: "Last name is required"
@@ -49,24 +50,30 @@ class AddContact extends Component {
       return;
     }
 
-    const newContact = { id: uuid(), fName: fname, lName: lname, email, age };
-    dispatch({
-      type: "ADD_CONTACT",
-      payload: newContact
-    });
+    const newContact = { name: name, phone: phone, email, age };
+
+    const res = await axios.post(
+      "https://jsonplaceholder.typicode.com/users",
+      newContact
+    );
+    console.log(res);
+    dispatch({ type: "ADD_CONTACT", payload: res.data });
 
     //Reset form to blank
     this.setState({
-      fname: "",
-      lname: "",
+      name: "",
+      phone: "",
       email: "",
       age: "",
       errors: {}
     });
+    {
+      this.props.history.push("/");
+    }
   };
 
   render() {
-    const { fname, lname, email, age, errors } = this.state;
+    const { name, phone, email, age, errors } = this.state;
     return (
       <Consumer>
         {value => {
@@ -78,21 +85,21 @@ class AddContact extends Component {
                 <form onSubmit={this.onFormSubmit.bind(this, dispatch)}>
                   <TextInputGroup
                     label="First Name"
-                    name="fname"
+                    name="name"
                     type="text"
                     placeholder="input first name"
-                    value={fname}
+                    value={name}
                     onChange={this.onChange}
-                    error={errors.fname}
+                    error={errors.name}
                   />
                   <TextInputGroup
-                    label="Last Name"
-                    name="lname"
+                    label="Phone"
+                    name="phone"
                     type="text"
-                    placeholder="input last name"
-                    value={lname}
+                    placeholder="your phone"
+                    value={phone}
                     onChange={this.onChange}
-                    error={errors.lname}
+                    error={errors.phone}
                   />
 
                   <TextInputGroup

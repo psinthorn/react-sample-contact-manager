@@ -8,6 +8,7 @@ import ContactList from "./../components/contacts/ContactList";
 import AddContact from "./contacts/AddContact";
 import About from "./pages/About";
 import NotFound from "./pages/NotFound";
+import ParamsIdTest from "./pages/ParamsIdTest";
 
 class App extends Component {
   render() {
@@ -21,7 +22,8 @@ class App extends Component {
                 <Route exact path="/" component={ContactList} />
                 <Route exact path="/contact/add" component={AddContact} />
                 <Route exact path="/about" component={About} />
-                <Route path="/NotFound" component={NotFound} />
+                <Route path="/params/:id" component={ParamsIdTest} />
+                <Route component={NotFound} />
               </Switch>
             </div>
           </div>

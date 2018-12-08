@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Proptypes from "prop-types";
 import ContactItem from "./ContactItem";
 import { Consumer } from "./../../context";
+import axios from "axios";
 
 class ContactList extends Component {
   render() {
@@ -17,12 +18,10 @@ class ContactList extends Component {
               {value.contacts.map(contact => {
                 return (
                   <ContactItem
-                    key={contact.fName}
+                    key={contact.id}
                     id={contact.id}
-                    fname={contact.fName}
-                    lname={contact.lName}
-                    email={contact.email}
-                    age={contact.age}
+                    fname={contact.name}
+                    phone={contact.phone}
                     errors={contact.errors}
                   />
                 );

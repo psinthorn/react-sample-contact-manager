@@ -6,13 +6,15 @@ const NotFound = () => {
       <div classname="card">
         <div className="card-header">
           <h1>
-            <span className="text-danger">404</span>Page Not Found.
+            <span className="text-danger">404 </span>Page Not Found.
           </h1>
         </div>
         <div calssname="card-body">
-          <span>Sorry page you try to access is not exist.</span>
-          <span>Cantact Manager</span>
-          <span>Version 6.12.18</span>
+          <span classname="lead">
+            <h4>Sorry page you try to access is not exist.</h4>
+          </span>
+          <span />
+          <p>Sample Cantact Manager</p>
         </div>
       </div>
     </div>

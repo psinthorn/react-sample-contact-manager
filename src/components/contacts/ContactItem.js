@@ -1,22 +1,21 @@
 import React, { Component } from "react";
 import { Consumer } from "./../../context";
+import axios from "axios";
 
 class ContactItem extends Component {
   state = {
     showContactInfo: false
   };
 
-  onClickDelete = (id, dispatch) => {
-    console.log(id);
-    console.log(dispatch);
-    dispatch({
-      type: "DELETE_CONTACT",
-      payload: id
-    });
+  onClickDelete = async (id, dispatch) => {
+    await axios.delete(`https://jsonplaceholder.typicode.com/users/${id}`);
+
+    dispatch({ type: "DELETE_CONTACT", payload: id });
   };
 
   render() {
-    const { id, fname, lname, email, age } = this.props;
+    console.log(this.props);
+    const { id, fname, phone } = this.props;
     const showInfo = this.state.showContactInfo;
     return (
       <Consumer>
@@ -43,10 +42,9 @@ class ContactItem extends Component {
               </h4>
               {showInfo ? (
                 <ul>
+                  <li> ID: {id} </li>
                   <li> First Name: {fname} </li>
-                  <li> Last Name: {lname} </li>
-                  <li> Email: {email} </li>
-                  <li> Age: {age} </li>
+                  <li> Phone: {phone} </li>
                 </ul>
               ) : null}
             </div>
