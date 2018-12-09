@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Consumer } from "./../../context";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 class ContactItem extends Component {
   state = {
@@ -15,7 +16,7 @@ class ContactItem extends Component {
 
   render() {
     console.log(this.props);
-    const { id, fname, phone } = this.props;
+    const { id, name, phone, email } = this.props;
     const showInfo = this.state.showContactInfo;
     return (
       <Consumer>
@@ -24,7 +25,7 @@ class ContactItem extends Component {
           return (
             <div className="card card-body mb-3">
               <h4>
-                {fname}{" "}
+                {name}{" "}
                 <i
                   className="fas fa-sort-down"
                   style={{ cursor: "pointer" }}
@@ -39,11 +40,24 @@ class ContactItem extends Component {
                   style={{ cursor: "pointer", float: "right", color: "red" }}
                   onClick={this.onClickDelete.bind(this, id, dispatch)}
                 />
+                <Link to={`/contact/edit/${id}`}>
+                  <i
+                    className="fas fa-pencil-alt"
+                    style={{
+                      cursor: "pointer",
+                      float: "right",
+                      color: "black",
+                      marginRight: "1rem"
+                    }}
+                    onClick={this.onClickDelete.bind(this, id, dispatch)}
+                  />
+                </Link>
               </h4>
               {showInfo ? (
                 <ul>
                   <li> ID: {id} </li>
-                  <li> First Name: {fname} </li>
+                  <li> First Name: {name} </li>
+                  <li> Email: {email} </li>
                   <li> Phone: {phone} </li>
                 </ul>
               ) : null}

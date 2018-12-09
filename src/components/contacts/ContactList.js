@@ -20,7 +20,8 @@ class ContactList extends Component {
                   <ContactItem
                     key={contact.id}
                     id={contact.id}
-                    fname={contact.name}
+                    name={contact.name}
+                    email={contact.email}
                     phone={contact.phone}
                     errors={contact.errors}
                   />

@@ -6,6 +6,8 @@ import "./App.css";
 import Header from "./../components/layouts/Header";
 import ContactList from "./../components/contacts/ContactList";
 import AddContact from "./contacts/AddContact";
+import EditContact from "./contacts/EditContact";
+import ImageUpload from "./contacts/ImageUpload";
 import About from "./pages/About";
 import NotFound from "./pages/NotFound";
 import ParamsIdTest from "./pages/ParamsIdTest";
@@ -21,6 +23,12 @@ class App extends Component {
               <Switch>
                 <Route exact path="/" component={ContactList} />
                 <Route exact path="/contact/add" component={AddContact} />
+                <Route exact path="/contact/edit/:id" component={EditContact} />
+                <Route
+                  exact
+                  path="/contact/imageupload"
+                  component={ImageUpload}
+                />
                 <Route exact path="/about" component={About} />
                 <Route path="/params/:id" component={ParamsIdTest} />
                 <Route component={NotFound} />

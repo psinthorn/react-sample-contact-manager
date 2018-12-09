@@ -11,20 +11,21 @@ class AddContact extends Component {
     phone: "",
     email: "",
     age: "",
-    errors: {}
+    errors: {},
+    onChange: ""
   };
 
   onChange = e => this.setState({ [e.target.name]: e.target.value });
 
   onFormSubmit = async (dispatch, e) => {
     e.preventDefault();
-    const { name, phone, email, age } = this.state;
+    const { name, phone, email, age, errors } = this.state;
 
     // Form validation check
     if (name === "") {
       this.setState({
         errors: {
-          fname: "First name is required"
+          name: "First name is required"
         }
       });
       return;
@@ -34,7 +35,7 @@ class AddContact extends Component {
     if (phone === "") {
       this.setState({
         errors: {
-          lname: "Last name is required"
+          phone: "Last name is required"
         }
       });
       return;
@@ -50,7 +51,12 @@ class AddContact extends Component {
       return;
     }
 
-    const newContact = { name: name, phone: phone, email, age };
+    const newContact = {
+      name: name,
+      phone: phone,
+      email: email,
+      age: age
+    };
 
     const res = await axios.post(
       "https://jsonplaceholder.typicode.com/users",
